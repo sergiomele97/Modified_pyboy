@@ -11,6 +11,8 @@ __pdoc__ = {
     "PyBoyGameWrapper.argv": False,
 }
 
+
+import time
 import io
 import random
 from array import array
@@ -39,6 +41,7 @@ class PyBoyPlugin:
             self.pyboy = pyboy
             self.mb = mb
             self.pyboy_argv = pyboy_argv
+             
 
     def __cinit__(self, pyboy, mb, pyboy_argv, *args, **kwargs):
         self.pyboy = pyboy
@@ -62,18 +65,22 @@ class PyBoyPlugin:
 
 
 class PyBoyWindowPlugin(PyBoyPlugin):
+
+
     def __init__(self, pyboy, mb, pyboy_argv, *args, **kwargs):
         super().__init__(pyboy, mb, pyboy_argv, *args, **kwargs)
 
         if not self.enabled():
             return
+        
+        
 
         scale = pyboy_argv.get("scale")
         self.scale = scale
         logger.debug("%s initialization" % self.__class__.__name__)
 
         self._scaledresolution = (scale * COLS, scale * ROWS)
-        logger.debug("Scale: x%d (%d, %d)", self.scale, self._scaledresolution[0], self._scaledresolution[1])
+        logger.debug(" Prueba 1 Scale: x%d (%d, %d)", self.scale, self._scaledresolution[0], self._scaledresolution[1])
 
         self.enable_title = True
         if not cythonmode:
@@ -81,6 +88,7 @@ class PyBoyWindowPlugin(PyBoyPlugin):
 
     def __cinit__(self, *args, **kwargs):
         self.renderer = self.mb.lcd.renderer
+
 
     def frame_limiter(self, speed):
         return False
